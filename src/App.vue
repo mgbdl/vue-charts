@@ -1,8 +1,13 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer app v-model="sideNav">
+    <v-navigation-drawer temporary app v-model="sideNav">
       <v-list>
-        <v-list-tile v-for="item in menuItems" :key="item.title">
+        <v-list-tile
+          v-for="item in menuItems"
+          :key="item.title"
+          router
+          :to="item.link"
+          >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -12,10 +17,17 @@
     </v-navigation-drawer>
     <v-toolbar app>
       <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
-      <v-toolbar-title>Charts</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor : pointer"> Charts </router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat v-for="item in menuItems" :key="item.title">
+        <v-btn flat
+          v-for="item in menuItems"
+          :key="item.title"
+          router
+          :to="item.link"
+          >
           <v-icon left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
@@ -24,11 +36,10 @@
     <!-- <main> -->
     <v-content>
       <v-container fluid>
-        <!-- <router-view></router-view> -->
-        <!-- <line-example></line-example> -->
+        <router-view></router-view>
       </v-container>
+    </v-content>
     <!-- </main> -->
-  </v-content>
   </v-app>
 </template>
 
@@ -43,10 +54,10 @@ export default {
     return {
       sideNav: false,
       menuItems: [
-        {icon: 'schedule', title: 'Schedule'},
-        {icon: 'check_circle', title: 'Operation Effectiveness'},
-        {icon: 'adjust', title: 'Syestem Availabiliry & Reliability'},
-        {icon: 'person', title: 'Profile'}
+        {icon: 'schedule', title: 'Schedule', link: '/schedule'},
+        {icon: 'check_circle', title: 'Operation Effectiveness', link: '/operation'},
+        {icon: 'adjust', title: 'System Availabiliry & Reliability', link: '/system'},
+        {icon: 'person', title: 'Profile', link: '/'}
       ]
     }
   }
